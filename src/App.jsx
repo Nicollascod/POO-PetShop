@@ -6,6 +6,7 @@ import { Cachorro } from "./Models/Cachorro";
 import { Gato } from "./Models/Gato";
 import { Peixe } from "./Models/Peixe";
 import { Animal } from "./Models/Animal";
+import "./App.css";
 
 export default function App() {
 
@@ -15,6 +16,7 @@ export default function App() {
 
   // Formulário Cliente
   const [nomeCliente, setNomeCliente] = useState("");
+  const [idadeCliente, setIdadeCliente] = useState("");
   const [enderecoCliente, setEnderecoCliente] = useState("");
   const [cpfCliente, setCpfCliente] = useState("");
   const [showClienteModal, setShowClienteModal] = useState(false);
@@ -31,11 +33,13 @@ export default function App() {
   // Adicionar cliente
   const adicionarCliente = () => {
     if (!nomeCliente) return alert("Informe o nome do cliente");
+    if (!idadeCliente) return alert("Informe a idade do cliente");
     if (!enderecoCliente) return alert("Informe o endereço do cliente");
     if (!cpfCliente) return alert("Informe o CPF do cliente");
-    const novoCliente = new Cliente(nomeCliente, undefined, enderecoCliente, cpfCliente);
+    const novoCliente = new Cliente(nomeCliente, Number(idadeCliente), enderecoCliente, cpfCliente);
     setClientes([...clientes, novoCliente]);
     setNomeCliente("");
+    setIdadeCliente("");
     setEnderecoCliente("");
     setCpfCliente("");
     setShowClienteModal(false);
@@ -112,6 +116,14 @@ export default function App() {
               placeholder="Nome do cliente"
               value={nomeCliente}
               onChange={(e) => setNomeCliente(e.target.value)}
+              style={{ marginBottom: 10, width: "100%" }}
+            />
+            <input
+              type="number"
+              placeholder="Idade"
+              value={idadeCliente}
+              onChange={(e) => setIdadeCliente(e.target.value)}
+              min={0}
               style={{ marginBottom: 10, width: "100%" }}
             />
             <input
